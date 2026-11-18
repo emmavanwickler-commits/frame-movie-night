@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRAME. | Find Your Next Movie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #151416;
+      color: #f4efe9;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    header {
+      height: 76px;
+      padding: 0 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #302b2d;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 27px;
+      letter-spacing: 3px;
+      color: #d6b68a;
+    }
+
+    nav { display: flex; gap: 30px; }
+    nav a {
+      color: #bdb6b1;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color .2s;
+    }
+    nav a:hover { color: #d6b68a; }
+
+    .hero {
+      min-height: 440px;
+      padding: 95px 20px 80px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 20%, #48252e 0%, #251b21 35%, #151416 75%);
+    }
+
+    .eyebrow {
+      color: #c49b75;
+      font-size: 11px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1.15;
+      font-weight: 500;
+      max-width: 750px;
+      margin: auto;
+    }
+
+    h1 span { color: #d6b68a; font-style: italic; }
+
+    .hero p {
+      color: #bcb2b0;
+      margin: 20px auto 30px;
+      font-size: 15px;
+      max-width: 470px;
+      line-height: 1.8;
+    }
+
+    .primary-btn {
+      background: #a64e57;
+      color: white;
+      border: 0;
+      padding: 15px 27px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .primary-btn:hover {
+      background: #bd6069;
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 55px 25px 90px;
+    }
+
+    .section-label {
+      color: #bd9475;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 31px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .section-description {
+      color: #a9a1a0;
+      font-size: 13px;
+      margin-bottom: 26px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 65px;
+    }
+
+    .choice {
+      background: #211e21;
+      border: 1px solid #373034;
+      padding: 24px 14px;
+      border-radius: 8px;
+      color: #f4efe9;
+      cursor: pointer;
+      text-align: left;
+      transition: .25s;
+    }
+
+    .choice:hover, .choice.active {
+      border-color: #bd9475;
+      background: #302329;
+      transform: translateY(-3px);
+    }
+
+    .choice .symbol {
+      font-size: 25px;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .choice strong { font-size: 14px; }
+    .choice small {
+      display: block;
+      color: #aaa1a0;
+      margin-top: 7px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .results {
+      display: none;
+      margin: 35px 0 60px;
+      padding: 27px;
+      border: 1px solid #60434a;
+      border-radius: 10px;
+      background: linear-gradient(130deg, #302127, #201d20);
+    }
+
+    .results.show { display: block; }
+
+    .movie-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .movie-result h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      margin: 8px 0;
+    }
+
+    .movie-result p {
+      color: #bcb2b0;
+      font-size: 13px;
+      line-height: 1.7;
+      max-width: 550px;
+    }
+
+    .movie-meta {
+      color: #d6b68a !important;
+      font-size: 11px !important;
+      margin-bottom: 8px;
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: #e4c9a7;
+      border: 1px solid #806451;
+      border-radius: 5px;
+      padding: 11px 17px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .secondary-btn:hover { background: #443039; }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 25px;
+    }
+
+    .movie-card {
+      background: #211e21;
+      border: 1px solid #373034;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-5px);
+      border-color: #96745f;
+    }
+
+    .poster {
+      height: 175px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(145deg, #60404b, #211a25);
+    }
+
+    .poster span {
+      font-family: 'Playfair Display', serif;
+      font-size: 25px;
+      color: #f0d8bd;
+    }
+
+    .movie-info { padding: 17px; }
+    .movie-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    .movie-info p {
+      color: #a9a1a0;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .save-btn {
+      margin-top: 14px;
+      background: transparent;
+      color: #d6b68a;
+      border: 1px solid #59454a;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .save-btn:hover { background: #39262d; }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid #302b2d;
+      padding: 28px;
+      color: #827b7a;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 650px) {
+      header { padding: 0 5%; }
+      nav { gap: 12px; }
+      nav a { font-size: 11px; }
+      .choices { grid-template-columns: repeat(2, 1fr); }
+      .movie-grid { grid-template-columns: 1fr; }
+      main { padding-left: 18px; padding-right: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">FRAME.</div>
+    <nav>
+      <a href="#discover">Discover</a>
+      <a href="#movies">Movies</a>
+      <a href="#watchlist">My Watchlist</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">YOUR PERSONAL MOVIE FINDER</div>
+    <h1>An evening<br>worth <span>watching.</span></h1>
+    <p>Too many movies. Too many choices.
+      Let's find the perfect film for tonight.</p>
+    <button class="primary-btn" onclick="surpriseMe()">
+      FIND MY MOVIE &nbsp; →
+    </button>
+  </section>
+
+  <main>
+    <section id="discover">
+      <div class="section-label">LET'S NARROW IT DOWN</div>
+      <h2>What's the mood tonight?</h2>
+      <p class="section-description">
+        Choose a feeling. We'll find a film to match it.
+      </p>
+
+      <div class="choices">
+        <button class="choice" onclick="pickMood('Comedy', this)">
+          <span class="symbol">☀</span>
+          <strong>Light & Funny</strong>
+          <small>Something to make you laugh</small>
+        </button>
+
+        <button class="choice" onclick="pickMood('Horror', this)">
+          <span class="symbol">✦</span>
+          <strong>On the Edge</strong>
+          <small>Give me something scary</small>
+        </button>
+
+        <button class="choice" onclick="pickMood('Romance', this)">
+          <span class="symbol">♡</span>
+          <strong>In My Feelings</strong>
+          <small>A little romance or drama</small>
+        </button>
+
+        <button class="choice" onclick="pickMood('Thriller', this)">
+          <span class="symbol">◈</span>
+          <strong>Mind-Blowing</strong>
+          <small>Keep me guessing</small>
+        </button>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <div class="section-label">YOUR MOVIE MATCH</div>
+      <div class="movie-result" id="resultContent"></div>
+      <button class="secondary-btn" onclick="surpriseMe()">
+        Try another movie ↻
+      </button>
+    </section>
+
+    <section id="movies">
+      <div class="section-label">A LITTLE INSPIRATION</div>
+      <h2>Tonight's possibilities.</h2>
+      <p class="section-description">
+        A few films to get your movie night started.
+      </p>
+      <div class="movie-grid" id="movieGrid"></div>
+    </section>
+
+    <section id="watchlist" style="margin-top:65px">
+      <div class="section-label">SAVED FOR LATER</div>
+      <h2>My watchlist.</h2>
+      <p class="section-description">
+        Your saved movies, all in one place.
+      </p>
+      <div class="movie-grid" id="savedGrid"></div>
+    </section>
+  </main>
+
+  <footer>FRAME. &nbsp; | &nbsp; FIND SOMETHING WORTH WATCHING.</footer>
+
+  <script>
+    const movies = [
+      {title:"The Grand Budapest Hotel", year:2014, genre:"Comedy",
+       description:"A charming and visually stunning adventure filled with eccentric characters and unexpected twists."},
+      {title:"Knives Out", year:2019, genre:"Thriller",
+       description:"A clever murder mystery where everyone has a secret and nobody is quite innocent."},
+      {title:"Get Out", year:2017, genre:"Horror",
+       description:"A chilling psychological thriller that turns an ordinary weekend into a nightmare."},
+      {title:"The Notebook", year:2004, genre:"Romance",
+       description:"A heartfelt love story about memories, devotion, and a love that lasts."},
+      {title:"Crazy Rich Asians", year:2018, genre:"Romance",
+       description:"A glamorous romantic comedy about love, family, and unexpected complications."},
+      {title:"A Quiet Place", year:2018, genre:"Horror",
+       description:"A suspenseful survival story where making even the smallest sound can be deadly."},
+      {title:"Game Night", year:2018, genre:"Comedy",
+       description:"A fun game night takes a wildly unexpected turn in this fast-paced comedy."},
+      {title:"Shutter Island", year:2010, genre:"Thriller",
+       description:"A mysterious disappearance leads to a psychological puzzle with a shocking edge."},
+      {title:"About Time", year:2013, genre:"Romance",
+       description:"A warm and thoughtful story about love, family, and making every moment count."}
+    ];
+
+    let selectedMovie = null;
+    let watchlist = JSON.parse(localStorage.getItem('frameWatchlist') || '[]');
+
+    function movieCard(movie) {
+      const saved = watchlist.includes(movie.title);
+      return `
+        <article class="movie-card">
+          <div class="poster"><span>${movie.title}</span></div>
+          <div class="movie-info">
+            <h3>${movie.title}</h3>
+            <p>${movie.year} &nbsp; · &nbsp; ${movie.genre}</p>
+            <p style="margin-top:8px">${movie.description}</p>
+            <button class="save-btn" onclick="toggleSave('${movie.title.replace(/'/g, "\\'")}')">
+              ${saved ? '♥ Saved' : '+ Add to watchlist'}
+            </button>
+          </div>
+        </article>`;
+    }
+
+    function renderMovies() {
+      document.getElementById('movieGrid').innerHTML =
+        movies.slice(0, 6).map(movieCard).join('');
+
+      const savedMovies = movies.filter(movie =>
+        watchlist.includes(movie.title)
+      );
+
+      document.getElementById('savedGrid').innerHTML =
+        savedMovies.length
+          ? savedMovies.map(movieCard).join('')
+          : '<p style="color:#a9a1a0;font-size:13px">Your watchlist is empty. Save a movie you love!</p>';
+    }
+
+    function showMovie(movie) {
+      selectedMovie = movie;
+      document.getElementById('resultContent').innerHTML = `
+        <div>
+          <p class="movie-meta">${movie.genre.toUpperCase()} &nbsp; · &nbsp; ${movie.year}</p>
+          <h3>${movie.title}</h3>
+          <p>${movie.description}</p>
+        </div>
+        <button class="secondary-btn" onclick="toggleSave('${movie.title.replace(/'/g, "\\'")}')">
+          + Save movie
+        </button>`;
+
+      document.getElementById('results').classList.add('show');
+      document.getElementById('results').scrollIntoView({
+        behavior:'smooth', block:'center'
+      });
+    }
+
+    function surpriseMe() {
+      const movie = movies[Math.floor(Math.random() * movies.length)];
+      document.querySelectorAll('.choice').forEach(button =>
+        button.classList.remove('active')
+      );
+      showMovie(movie);
+    }
+
+    function pickMood(mood, button) {
+      document.querySelectorAll('.choice').forEach(item =>
+        item.classList.remove('active')
+      );
+      button.classList.add('active');
+
+      const matches = movies.filter(movie => movie.genre === mood);
+      const movie = matches[Math.floor(Math.random() * matches.length)];
+      showMovie(movie);
+    }
+
+    function toggleSave(title) {
+      if (watchlist.includes(title)) {
+        watchlist = watchlist.filter(item => item !== title);
+      } else {
+        watchlist.push(title);
+      }
+
+      localStorage.setItem('frameWatchlist', JSON.stringify(watchlist));
+      renderMovies();
+
+      if (selectedMovie && selectedMovie.title === title) {
+        const button = document.querySelector('#resultContent button');
+        if (button) button.textContent =
+          watchlist.includes(title) ? '♥ Saved' : '+ Save movie';
+      }
+    }
+
+    renderMovies();
+  </script>
+</body>
+</html>
